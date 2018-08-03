@@ -7,9 +7,10 @@
 
 FROM geodata/gdal:latest
 
-MAINTAINER Homme Zwaagstra <hrz@geodata.soton.ac.uk>
-
 USER root
+
+# The git tag to checkout
+ARG GIT_TAG=master
 
 # Install the application.
 ADD . /tmp/build/

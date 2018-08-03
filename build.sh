@@ -4,9 +4,6 @@
 # Build the docker image
 #
 
-# The MapServer git tag to checkout.
-git_tag=master
-
 # Exit on any non-zero status.
 trap 'exit' ERR
 set -E
@@ -36,13 +33,14 @@ apt-get install -y \
     libaprutil1-dev \
     libxslt1-dev \
     ruby-dev \
-    librsvg2-dev
+    librsvg2-dev \
+    libprotobuf-dev
 
 # Create the mapserver build environment.
 cd /tmp
 git clone https://github.com/mapserver/mapserver.git
 cd mapserver
-git checkout "${git_tag}"
+git checkout $GIT_TAG
 mkdir build
 cd build
 
@@ -90,6 +88,7 @@ cmake -DCMAKE_PREFIX_PATH=/usr/local \
     -DWITH_WFS=ON \
     -DWITH_WMS=ON \
     -DWITH_XMLMAPFILE=ON \
+    -DWITH_PROTOBUFC=0 \
     ../
 
 # Build and install Mapserver.
